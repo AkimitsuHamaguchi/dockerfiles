@@ -92,8 +92,6 @@ RUN mkdir ~/workspace
 USER root
 VOLUME /home/shutto/workspace
 
-RUN mkdir /var/ktserver && \
-    chown shutto:root /var/ktserver
 
 RUN bash -lc 'chown -R  shutto:root /usr/local/rbenv/'
 
