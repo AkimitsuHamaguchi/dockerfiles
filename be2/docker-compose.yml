@@ -1,0 +1,17 @@
+# mysql
+mysqlserver:
+  image: drvitamina/ea-mysql:5.6.27
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: be2dev
+# php
+phpserver:
+  image: drvitamina/be2dev:apachephp5.6
+  volumes:
+    - ~/Documents/workspace/be2_web:/var/www/html
+  links:
+    - mysqlserver
+  ports:
+    - "80:80"
+    - "443:443"
