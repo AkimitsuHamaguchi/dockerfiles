@@ -1,0 +1,27 @@
+# mysql
+mysqlserver:
+  image: drvitamina/ea-mysql:5.6.27
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: shuttodev
+# rails
+railsserver:
+  image: drvitamina/shuttodev:1.9.3-p551
+  volumes:
+    - ~/Documents/workspace/shutto:/home/shutto/workspace
+  links:
+    - mysqlserver
+  ports:
+     - "3000:3000"
+# apache
+apacheserver:
+  image: drvitamina/shuttodev-apache:centos7
+  links:
+    - railsserver
+  environment:
+    RAILS_URI: railsserver
+    RAILS_PORT: 3000
+  ports:
+    - "80:80"
+    - "443:443"
