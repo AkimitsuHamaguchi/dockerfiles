@@ -26,6 +26,11 @@ RUN yum  -y install \
 	httpd-devel \
 	&& rm -rf /var/cache/yum/* \
 	&& yum clean all
+	
+RUN yum  -y install \
+	mysql \
+	&& rm -rf /var/cache/yum/* \
+	&& yum clean all
 
 RUN yum --enablerepo=remi -y install gd-last php-pear
 RUN yum --enablerepo=remi-php56 --disablerepo=base,updates -y install \
