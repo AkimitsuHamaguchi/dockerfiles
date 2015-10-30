@@ -10,3 +10,10 @@ RUN { \
     echo "sql_mode = ''"; \
 } > /etc/mysql/conf.d/charset.cnf
 
+# タイムゾーンの設定
+RUN cp -p /usr/share/zoneinfo/Japan /etc/localtime
+
+
+
+
+

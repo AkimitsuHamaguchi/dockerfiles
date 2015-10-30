@@ -95,5 +95,13 @@ VOLUME /home/shutto/workspace
 
 RUN bash -lc 'chown -R  shutto:root /usr/local/rbenv/'
 
+# タイムゾーン/ロケールの設定
+RUN yum reinstall -y glibc-common && yum clean all
+ENV LANG ja_JP.UTF-8
+ENV LANGUAGE ja_JP:ja
+ENV LC_ALL ja_JP.UTF-8
+RUN unlink /etc/localtime
+RUN ln -s /usr/share/zoneinfo/Japan /etc/localtime
+
 EXPOSE 22 3000
 CMD ["/usr/sbin/sshd", "-D"]
