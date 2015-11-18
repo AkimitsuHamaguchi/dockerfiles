@@ -9,7 +9,7 @@ mysqlserver:
 phpserver:
   image: drvitamina/ea_php:5.5.30-apache
   volumes:
-    - ~/Documents/workspace/trialuser-stepmail:/var/www/html
+    - ~/Documents/workspace/ea_sales_management/trialuser-stepmail:/var/www/html
   links:
     - mysqlserver
   ports:
