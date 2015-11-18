@@ -1,0 +1,28 @@
+# mysql
+mysqlserver:
+  image: drvitamina/ea-mysql:5.6.27
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: apimaildev
+# rails
+tomcatserver:
+  image: drvitamina/apimaildev:centos7-tomcat8
+  volumes:
+    - ~/Documents/workspace/deliver:/usr/share/tomcat8/webapps/v1
+    - ~/Documents/workspace/members:/usr/share/tomcat8/webapps/members
+  links:
+    - mysqlserver
+  ports:
+     - "8009:8009"
+# apache
+apacheserver:
+  image: drvitamina/apimaildev-apache:centos7
+  links:
+    - tomcatserver
+  environment:
+    RAILS_URI: tomcatserver
+    RAILS_PORT: 8009
+  ports:
+    - "80:80"
+    - "443:443"
