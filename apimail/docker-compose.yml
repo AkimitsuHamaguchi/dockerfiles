@@ -11,9 +11,9 @@ tomcatserver:
   volumes:
     - ~/Documents/workspace/members:/home/yoyogi/members
     - ~/Documents/workspace/deliver:/home/yoyogi/v1
-#    - ~/Documents/workspace/apimail-webapi-v2:/home/yoyogi/v2
     - ~/Documents/workspace/deliver_batch:/home/yoyogi/batch
     - ~/Documents/workspace/apimail-gateway:/home/yoyogi/gt
+#    - ~/Documents/workspace/apimail-webapi-v2:/home/yoyogi/v2
   links:
     - mysqlserver
   ports:
