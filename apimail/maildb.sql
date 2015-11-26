@@ -1,33 +1,30 @@
--- MySQL dump 10.13  Distrib 5.5.39, for Linux (x86_64)
---
--- Host: localhost    Database: maildb
--- ------------------------------------------------------
--- Server version	5.5.39-log
+# ************************************************************
+# Sequel Pro SQL dump
+# バージョン 4499
+#
+# http://www.sequelpro.com/
+# https://github.com/sequelpro/sequelpro
+#
+# ホスト: 192.168.99.100 (MySQL 5.6.27)
+# データベース: maildb
+# 作成時刻: 2015-11-24 11:08:19 +0000
+# ************************************************************
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Position to start replication or point-in-time recovery from
---
 
--- CHANGE MASTER TO MASTER_LOG_FILE='mysql-bin.000185', MASTER_LOG_POS=696407;
-
---
--- Table structure for table `admins`
---
+# テーブルのダンプ admins
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `admins`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `admins` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `name` varchar(255) NOT NULL COMMENT '管理者名',
@@ -39,27 +36,24 @@ CREATE TABLE `admins` (
   `updated_at` datetime DEFAULT NULL COMMENT '更新日時',
   `delete_flg` tinyint(4) DEFAULT '0' COMMENT '削除フラグ : 0=未削除,1=削除',
   PRIMARY KEY (`id`,`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='管理者';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `admins`
---
--- ORDER BY:  `id`,`name`
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='管理者';
 
 LOCK TABLES `admins` WRITE;
 /*!40000 ALTER TABLE `admins` DISABLE KEYS */;
-INSERT INTO `admins` VALUES (1,'admin','mta.dragon@dragon.jp','5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8','members support team','mta.dragon@dragon.jp','2013-09-02 11:55:46','2013-09-02 11:55:50',0);
+
+INSERT INTO `admins` (`id`, `name`, `email`, `password`, `from_name`, `from_email`, `created_at`, `updated_at`, `delete_flg`)
+VALUES
+	(1,'admin','mta.dragon@dragon.jp','5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8','members support team','mta.dragon@dragon.jp','2013-09-02 11:55:46','2013-09-02 11:55:50',0);
+
 /*!40000 ALTER TABLE `admins` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `bounce_mails`
---
+
+# テーブルのダンプ bounce_mails
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `bounce_mails`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `bounce_mails` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `client_id` int(11) NOT NULL COMMENT 'クライアントID',
@@ -71,49 +65,37 @@ CREATE TABLE `bounce_mails` (
   `created_at` datetime DEFAULT NULL COMMENT '登録日時',
   `updated_at` datetime DEFAULT NULL COMMENT '更新日時',
   PRIMARY KEY (`id`,`client_id`,`task_id`,`email`,`client_task_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=181572 DEFAULT CHARSET=utf8 COMMENT='バウンスメール'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='バウンスメール'
 /*!50100 PARTITION BY HASH (client_id)
 PARTITIONS 120 */;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `bounce_mails`
---
--- ORDER BY:  `id`,`client_id`,`task_id`,`email`,`client_task_id`
 
 
---
--- Table structure for table `clients`
---
+
+# テーブルのダンプ clients
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `clients`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `clients` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `name` varchar(128) NOT NULL COMMENT 'クライアント名',
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'ステータス : 0=利用中,1=一時停止中,2=解約',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0:利用中 1:一時停止中 3:解約',
   `split` int(11) unsigned NOT NULL DEFAULT '100000' COMMENT '分割単位',
   `plan_id` int(11) NOT NULL COMMENT 'プランID',
+  `group_id` int(11) NOT NULL DEFAULT '0' COMMENT 'グループID',
   `delete_flg` tinyint(4) NOT NULL DEFAULT '0' COMMENT '削除フラグ : 0=未削除,1=削除',
   `created_at` datetime DEFAULT NULL COMMENT '登録日時',
   `updated_at` datetime DEFAULT NULL COMMENT '更新日時',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `clients`
---
--- ORDER BY:  `id`
 
---
--- Table structure for table `deliveries`
---
+
+# テーブルのダンプ deliveries
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `deliveries`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `deliveries` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `client_id` int(11) unsigned NOT NULL,
@@ -148,22 +130,31 @@ CREATE TABLE `deliveries` (
   `created_at` datetime DEFAULT NULL COMMENT '登録日時',
   `updated_at` datetime DEFAULT NULL COMMENT '更新日時',
   PRIMARY KEY (`id`,`task_id`,`client_id`,`client_task_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=416 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `deliveries`
---
--- ORDER BY:  `id`,`task_id`,`client_id`,`client_task_id`
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
---
--- Table structure for table `ip_addrs`
---
+
+# テーブルのダンプ groups
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `groups`;
+
+CREATE TABLE `groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `name` varchar(64) NOT NULL COMMENT 'グループ名称',
+  `delete_flg` char(1) NOT NULL DEFAULT '0' COMMENT '削除フラグ : 0=未削除,1=削除',
+  `created_at` datetime DEFAULT NULL COMMENT '登録日時',
+  `updated_at` datetime DEFAULT NULL COMMENT '更新日時',
+  PRIMARY KEY (`id`,`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='GROUP';
+
+
+
+# テーブルのダンプ ip_addrs
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `ip_addrs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `ip_addrs` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `client_id` int(10) unsigned NOT NULL,
@@ -172,22 +163,15 @@ CREATE TABLE `ip_addrs` (
   `created_at` datetime DEFAULT NULL COMMENT '登録日時',
   `updated_at` datetime DEFAULT NULL COMMENT '更新日時',
   PRIMARY KEY (`id`,`ip_addrs`,`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='接続許可IP';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ip_addrs`
---
--- ORDER BY:  `id`,`ip_addrs`,`client_id`
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='接続許可IP';
 
 
---
--- Table structure for table `jobs`
---
+
+# テーブルのダンプ jobs
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `jobs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `jobs` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'JobID',
   `delivery_id` int(11) NOT NULL COMMENT '配信ID',
@@ -197,21 +181,15 @@ CREATE TABLE `jobs` (
   `created_at` datetime DEFAULT NULL COMMENT '登録日時',
   `updated_at` datetime DEFAULT NULL COMMENT '更新日時',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8 COMMENT='Job管理';
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Job管理';
 
---
--- Dumping data for table `jobs`
---
--- ORDER BY:  `id`
 
---
--- Table structure for table `mixs`
---
+
+# テーブルのダンプ mixs
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `mixs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `mixs` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `delivery_id` int(11) NOT NULL COMMENT '配信ID',
@@ -225,25 +203,14 @@ CREATE TABLE `mixs` (
   `updated_at` datetime DEFAULT NULL COMMENT '更新日時',
   PRIMARY KEY (`id`,`delivery_id`,`task_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Mix配信用';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `mixs`
---
--- ORDER BY:  `id`,`delivery_id`,`task_id`
 
-LOCK TABLES `mixs` WRITE;
-/*!40000 ALTER TABLE `mixs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `mixs` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `mtas`
---
+# テーブルのダンプ mtas
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `mtas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `mtas` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `host` varchar(30) NOT NULL COMMENT 'IPアドレス',
@@ -254,27 +221,21 @@ CREATE TABLE `mtas` (
   `client_id` int(11) DEFAULT NULL COMMENT '専有クライアントID',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '配信状況ステータス : 1=待機中,2=利用中',
   `threshold` double NOT NULL DEFAULT '2' COMMENT '閾値',
-  `delivery_rest` int(11) NOT NULL DEFAULT '0' COMMENT '配信制限数',
+  `delivery_rest` int(11) NOT NULL DEFAULT '0' COMMENT '配信残数制限',
+  `group_id` int(11) NOT NULL DEFAULT '0' COMMENT 'グループID',
   `created_at` datetime DEFAULT NULL COMMENT '登録日時',
   `updated_at` datetime DEFAULT NULL COMMENT '更新日時',
   `delete_flg` char(1) NOT NULL DEFAULT '0' COMMENT '削除フラグ : 0=未削除,1=削除',
   PRIMARY KEY (`id`,`host`,`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='MTA';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `mtas`
---
--- ORDER BY:  `id`,`host`,`name`
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='MTA';
 
 
---
--- Table structure for table `plans`
---
+
+# テーブルのダンプ plans
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `plans`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `plans` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL COMMENT 'プラン名',
@@ -285,27 +246,27 @@ CREATE TABLE `plans` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`,`name`,`send_limit`,`list_limit`,`amount`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `plans`
---
--- ORDER BY:  `id`,`name`,`send_limit`,`list_limit`,`amount`
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `plans` WRITE;
 /*!40000 ALTER TABLE `plans` DISABLE KEYS */;
-INSERT INTO `plans` VALUES (1,'5万通プラン',50000,50000,50000,0,'2013-10-18 16:24:12','2013-10-18 16:24:18'),(2,'6万通プラン',60000,120000,60000,0,'2013-10-18 16:27:09','2013-10-18 16:27:41'),(3,'10万通プラン',100000,100000,100000,0,'2013-12-09 10:34:44','2013-12-09 10:34:55'),(4,'EAプラン',100000,100000,1,0,'2014-01-17 10:43:51','2015-05-12 16:34:38');
+
+INSERT INTO `plans` (`id`, `name`, `list_limit`, `send_limit`, `amount`, `delete_flg`, `created_at`, `updated_at`)
+VALUES
+	(1,'5万通プラン',50000,50000,50000,0,'2013-10-18 16:24:12','2013-10-18 16:24:18'),
+	(2,'6万通プラン',60000,120000,60000,0,'2013-10-18 16:27:09','2013-10-18 16:27:41'),
+	(3,'10万通プラン',100000,100000,100000,0,'2013-12-09 10:34:44','2013-12-09 10:34:55'),
+	(4,'EAプラン',100000,100000,1,0,'2014-01-17 10:43:51','2015-05-12 16:34:38');
+
 /*!40000 ALTER TABLE `plans` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `short_urls`
---
+
+# テーブルのダンプ short_urls
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `short_urls`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `short_urls` (
   `short_url` varchar(11) NOT NULL COMMENT 'short url',
   `redirect_url` text NOT NULL COMMENT 'redirect先',
@@ -319,21 +280,14 @@ CREATE TABLE `short_urls` (
   `updated_at` datetime DEFAULT NULL COMMENT '更新日時',
   PRIMARY KEY (`short_url`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='短縮URL';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `short_urls`
---
--- ORDER BY:  `short_url`
 
 
---
--- Table structure for table `splitters`
---
+
+# テーブルのダンプ splitters
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `splitters`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `splitters` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `delivery_id` int(11) NOT NULL COMMENT '配信ID',
@@ -350,43 +304,35 @@ CREATE TABLE `splitters` (
   `created_at` datetime DEFAULT NULL COMMENT '登録日時',
   `updated_at` datetime DEFAULT NULL COMMENT '更新日時',
   PRIMARY KEY (`id`,`delivery_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2173 DEFAULT CHARSET=utf8 COMMENT='分割配信用';
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='分割配信用';
 
---
--- Dumping data for table `splitters`
---
--- ORDER BY:  `id`,`delivery_id`
 
---
--- Table structure for table `task_ids`
---
+
+# テーブルのダンプ task_ids
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `task_ids`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `task_ids` (
   `id` bigint(20) unsigned NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `task_ids`
---
 
 LOCK TABLES `task_ids` WRITE;
 /*!40000 ALTER TABLE `task_ids` DISABLE KEYS */;
-INSERT INTO `task_ids` VALUES (100294);
+
+INSERT INTO `task_ids` (`id`)
+VALUES
+	(100294);
+
 /*!40000 ALTER TABLE `task_ids` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `task_keys`
---
+
+# テーブルのダンプ task_keys
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `task_keys`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `task_keys` (
   `task_key` varchar(11) NOT NULL COMMENT '配信識別子',
   `client_id` int(10) unsigned NOT NULL COMMENT 'clientId',
@@ -398,21 +344,14 @@ CREATE TABLE `task_keys` (
   `updated_at` datetime DEFAULT NULL COMMENT '更新日時',
   PRIMARY KEY (`task_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='配信識別子';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `task_keys`
---
--- ORDER BY:  `task_key`
 
 
---
--- Table structure for table `web_hooks`
---
+
+# テーブルのダンプ web_hooks
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `web_hooks`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `web_hooks` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `client_id` int(11) NOT NULL COMMENT 'クライアントID',
@@ -421,21 +360,14 @@ CREATE TABLE `web_hooks` (
   `created_at` datetime DEFAULT NULL COMMENT '登録日時',
   `updated_at` datetime DEFAULT NULL COMMENT '更新日時',
   PRIMARY KEY (`id`,`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `web_hooks`
---
--- ORDER BY:  `id`,`client_id`
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2015-07-14  1:01:07

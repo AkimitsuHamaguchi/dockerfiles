@@ -33,7 +33,6 @@
   <role rolename="manager-jmx"/>
   <role rolename="role1"/>
   <role rolename="manager-status"/>
-  <user username="munin" password= "tpmcatpassword" roles="manager-status"/>
-  <user username="tomcat" password="tpmcatpassword" roles="manager-gui,manager-jmx"/>
-  <user username="deploy" password="tpmcatpassword" roles="standard,manager,admin,manager-script,manager-gui"/>
+  <user username="tomcat" password="tomcat" roles="manager-gui,manager-jmx"/>
+  <user username="deploy" password="deploy" roles="standard,manager,admin,manager-script,manager-gui"/>
 </tomcat-users>
