@@ -9,20 +9,24 @@ mysqlserver:
 tomcatserver:
   image: drvitamina/apimaildev:centos7-tomcat8
   volumes:
-    - ~/Documents/workspace/deliver:/usr/share/tomcat8/webapps/v1
-    - ~/Documents/workspace/members:/usr/share/tomcat8/webapps/members
+    - ~/Documents/workspace/members:/home/yoyogi/members
+    - ~/Documents/workspace/deliver:/home/yoyogi/v1
+#    - ~/Documents/workspace/apimail-webapi-v2:/home/yoyogi/v2
+    - ~/Documents/workspace/deliver_batch:/home/yoyogi/batch
+    - ~/Documents/workspace/apimail-gateway:/home/yoyogi/gt
   links:
     - mysqlserver
   ports:
      - "8009:8009"
+     - "8000:8000"
 # apache
 apacheserver:
   image: drvitamina/apimaildev-apache:centos7
   links:
     - tomcatserver
   environment:
-    RAILS_URI: tomcatserver
-    RAILS_PORT: 8009
+    TOMCAT_URI: tomcatserver
+    TOMCAT_PORT: 8009
   ports:
     - "80:80"
     - "443:443"

@@ -136,11 +136,10 @@
                prefix="localhost_access_log" suffix=".txt"
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
         <Context path="/members" reloadable="true" docBase="/home/yoyogi/members" workDir="/home/yoyogi/members/work" />
-<!--
          <Context path="/v1" reloadable="true" docBase="/home/yoyogi/v1" workDir="/home/yoyogi/v1/work" />
         <Context path="/v2" reloadable="true" docBase="/home/yoyogi/v2" workDir="/home/yoyogi/v2/work" />
         <Context path="/gt" reloadable="true" docBase="/home/yoyogi/gt" workDir="/home/yoyogi/gt/work" />
--->
+
      </Host>
     </Engine>
   </Service>

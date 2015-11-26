@@ -45,16 +45,8 @@ RUN mkdir ~/gt
 USER root
 VOLUME /home/yoyogi/batch
 VOLUME /home/yoyogi/members
-
-#RUN mkdir /usr/share/tomcat8/webapps/v1
-#RUN mkdir /usr/share/tomcat8/webapps/v2
-#RUN mkdir /usr/share/tomcat8/webapps/members
-#RUN mkdir /usr/share/tomcat8/webapps/members/WEB-INF
-#RUN mkdir /usr/share/tomcat8/webapps/gt
-#VOLUME /usr/share/tomcat8/webapps/v1
-#VOLUME /usr/share/tomcat8/webapps/v2
-#VOLUME /usr/share/tomcat8/webapps/members/WEB-INF
-#VOLUME /usr/share/tomcat8/webapps/gt
+VOLUME /home/yoyogi/v1
+VOLUME /home/yoyogi/gt
 
 
 # タイムゾーン/ロケールの設定
