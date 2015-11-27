@@ -47,5 +47,12 @@
            username="root" password="apimaildev" driverClassName="com.mysql.jdbc.Driver"
            url="jdbc:mysql://mysqlserver:3306/actiondb?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8"/>
            
-    <Parameter name="AudienceTBL" value="StgAudience" override="false"/>
+    <Resource name="jdbc/JNDI_REC" auth="Container" type="javax.sql.DataSource"
+           maxTotal="100" maxIdle="30" maxWaitMillis="10000"
+           testOnBorrow="true"
+           validationQuery="select 1 from dual"
+           username="root" password="apimaildev" driverClassName="com.mysql.jdbc.Driver"
+           url="jdbc:mysql://mysqlserver:3306/maildb?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8"/>
+           
+   <Parameter name="AudienceTBL" value="StgAudience" override="false"/>
  </Context>
