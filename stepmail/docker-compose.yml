@@ -7,7 +7,7 @@ mysqlserver:
     MYSQL_ROOT_PASSWORD: stepmaildev
 # php
 phpserver:
-  image: drvitamina/ea_php:5.5.30-apache
+  image: drvitamina/ea_php:5.6.15-apache
   volumes:
     - ~/Documents/workspace/ea_sales_management/trialuser-stepmail:/var/www/html
   links:
@@ -15,3 +15,4 @@ phpserver:
   ports:
     - "80:80"
     - "443:443"
+    - "9000:9000"
