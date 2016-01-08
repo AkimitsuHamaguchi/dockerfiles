@@ -14,8 +14,8 @@ tout="30"
 thnum="8"
 pidfile="$basedir/pid"
 logfile="$basedir/log"
-#miscopts="-oat"
-miscopts="-th 1 -plsv /usr/local/libexec/ktplugservmemc.so -plex 'port=22222#opts=fq#thnum=30' 'casket.kct#ktopts=p'"
+miscopts="-oat"
+#miscopts="-th 1 -plsv /usr/local/libexec/ktplugservmemc.so -plex 'port=22222#opts=fq#thnum=30' 'casket.kct#ktopts=p'"
 #ulogdir="$basedir/ulog"
 #ulim=1g
 #sid=1

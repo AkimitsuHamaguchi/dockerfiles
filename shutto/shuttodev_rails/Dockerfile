@@ -103,5 +103,5 @@ ENV LC_ALL ja_JP.UTF-8
 RUN unlink /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Japan /etc/localtime
 
-EXPOSE 22 3000
+EXPOSE 22 3000 9000
 CMD ["/usr/sbin/sshd", "-D"]
