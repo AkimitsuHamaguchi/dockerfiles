@@ -9,6 +9,8 @@ RUN unlink /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Japan /etc/localtime
 
 ADD 001_shutto.conf /etc/httpd/conf.d/
+VOLUME /var/www/html
+
 ENV RAILS_URI localhost
 ENV RAILS_PORT 3000
 
