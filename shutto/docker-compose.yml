@@ -18,6 +18,8 @@ railsserver:
 # apache
 apacheserver:
   image: drvitamina/shuttodev-apache:centos7
+  volumes:
+    - ~/Documents/workspace/shutto/public:/var/www/html
   links:
     - railsserver
   environment:
