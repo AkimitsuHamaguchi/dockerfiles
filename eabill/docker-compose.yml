@@ -1,0 +1,17 @@
+# mysql
+mariadbserver:
+  image: drvitamina/ea-mariadb:10.0
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: eabill
+# playframework
+playframeworkserver:
+  image: drvitamina/ea-playframework:2.4
+  volumes:
+    - ~/Documents/workspace/playff_sample:/home/play/workspace
+  links:
+    - mariadbserver
+  ports:
+    - "9000:9000"
+    - "9999:9999"
