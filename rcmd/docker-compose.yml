@@ -4,12 +4,12 @@ mysqlserver:
   ports:
     - "3306:3306"
   environment:
-    MYSQL_ROOT_PASSWORD: shuttodev
+    MYSQL_ROOT_PASSWORD: rcmddev
 # rails
 railsserver:
-  image: drvitamina/shuttodev:1.9.3-p551
+  image: drvitamina/rcmdservicedev:2.3.0
   volumes:
-    - ~/Documents/workspace/shutto:/home/shutto/workspace
+    - ~/Documents/workspace/rcmd-service:/home/recommend/workspace
   links:
     - mysqlserver
   extra_hosts:
@@ -19,9 +19,9 @@ railsserver:
      - "9000:9000"
 # apache
 apacheserver:
-  image: drvitamina/shuttodev-apache:centos7
+  image: drvitamina/rcmdservicedev-apache:centos7
   volumes:
-    - ~/Documents/workspace/shutto/public:/var/www/html
+    - ~/Documents/workspace/rcmd-service/public:/var/www/html
   links:
     - railsserver
   environment:

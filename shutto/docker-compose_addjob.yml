@@ -17,6 +17,22 @@ railsserver:
   ports:
      - "3000:3000"
      - "9000:9000"
+# railsjob1
+railsserverjob1:
+  image: drvitamina/shuttodev:1.9.3-p551
+  volumes:
+    - ~/Documents/workspace/shutto:/home/shutto/workspace
+  links:
+    - mysqlserver
+    - railsserver
+# railsjob2
+railsserverjob2:
+  image: drvitamina/shuttodev:1.9.3-p551
+  volumes:
+    - ~/Documents/workspace/shutto:/home/shutto/workspace
+  links:
+    - mysqlserver
+    - railsserver
 # apache
 apacheserver:
   image: drvitamina/shuttodev-apache:centos7
