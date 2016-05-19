@@ -43,6 +43,17 @@ RUN bash -lc 'gem update --system'
 RUN bash -lc 'gem install bundler --no-ri --no-rdoc'
 RUN bash -lc 'rbenv rehash'
 
+#PhantomJS
+RUN yum install -y fontconfig freetype freetype-devel fontconfig-devel libstdc++ \
+	&& rm -rf /var/cache/yum/* \
+	&& yum clean all
+
+RUN mkdir -p /opt/phantomjs/
+RUN curl -fsSL https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 -o phantomjs.tar.bz2
+RUN tar -xvf phantomjs.tar.bz2 -C /opt/phantomjs
+RUN rm phantomjs.tar.bz2
+ENV PATH $PATH:/opt/phantomjs/phantomjs-2.1.1-linux-x86_64/bin/
+RUN ln -s /opt/phantomjs/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
 
 RUN useradd -m -s /bin/bash recommend
 RUN echo 'recommend:password' | chpasswd

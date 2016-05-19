@@ -7,7 +7,7 @@ mysqlserver:
     MYSQL_ROOT_PASSWORD: rcmddev
 # rails
 railsserver:
-  image: drvitamina/rcmdservicedev:2.3.0
+  image: drvitamina/rcmdservicedev:2.3.0-phantomjs
   volumes:
     - ~/Documents/workspace/rcmd-service:/home/recommend/workspace
   links:
