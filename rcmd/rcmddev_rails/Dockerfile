@@ -85,4 +85,5 @@ RUN unlink /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Japan /etc/localtime
 
 EXPOSE 22 3000 9000 25
-CMD ["/usr/sbin/sshd", "-D"]
+###CMD ["/usr/sbin/sshd", "-D"]
+ENTRYPOINT /usr/sbin/postfix start && /usr/sbin/sshd -D
