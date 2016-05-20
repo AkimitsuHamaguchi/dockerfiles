@@ -17,6 +17,7 @@ railsserver:
   ports:
      - "3000:3000"
      - "9000:9000"
+     - "25:25"
 # apache
 apacheserver:
   image: drvitamina/rcmdservicedev-apache:centos7
