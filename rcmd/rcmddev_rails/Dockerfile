@@ -43,7 +43,7 @@ RUN bash -lc 'gem update --system'
 RUN bash -lc 'gem install bundler --no-ri --no-rdoc'
 RUN bash -lc 'rbenv rehash'
 
-#PhantomJS
+# PhantomJS
 RUN yum install -y fontconfig freetype freetype-devel fontconfig-devel libstdc++ \
 	&& rm -rf /var/cache/yum/* \
 	&& yum clean all
@@ -55,6 +55,12 @@ RUN rm phantomjs.tar.bz2
 ENV PATH $PATH:/opt/phantomjs/phantomjs-2.1.1-linux-x86_64/bin/
 RUN ln -s /opt/phantomjs/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
 
+# Postfix
+RUN yum install -y postfix cyrus-sasl-plain cyrus-sasl-md5 \
+	&& rm -rf /var/cache/yum/* \
+	&& yum clean all
+	
+	
 RUN useradd -m -s /bin/bash recommend
 RUN echo 'recommend:password' | chpasswd
 RUN usermod -G recommend,wheel recommend
@@ -78,5 +84,5 @@ ENV LC_ALL ja_JP.UTF-8
 RUN unlink /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Japan /etc/localtime
 
-EXPOSE 22 3000 9000
+EXPOSE 22 3000 9000 25
 CMD ["/usr/sbin/sshd", "-D"]
