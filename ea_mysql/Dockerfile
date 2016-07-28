@@ -1,4 +1,4 @@
-FROM mysql:5.6.27
+FROM mysql:5.7
 
 # utf8サポート
 RUN { \

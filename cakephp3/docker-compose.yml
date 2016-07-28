@@ -1,0 +1,17 @@
+# mysql
+mysqlserver:
+  image: drvitamina/ea-mysql:5.7
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: cakephpdev
+# php
+phpserver:
+  image: drvitamina/cake_apachephp:php7
+  volumes:
+    - ~/Documents/workspace/cakephp-3.3.0:/var/www/html
+  links:
+    - mysqlserver
+  ports:
+    - "80:80"
+    - "443:443"
