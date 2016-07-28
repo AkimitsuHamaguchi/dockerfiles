@@ -1,0 +1,41 @@
+# mysql
+mysqlservermain:
+  image: drvitamina/ea-mysql:5.6.27
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: rcmddev
+# mysql
+mysqlserverlinkage:
+  image: drvitamina/ea-mysql:5.6.27
+  ports:
+    - "3307:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: rcmddev
+# rails
+railsserverlinkage:
+  image: drvitamina/rcmdservicedev:2.3.0-phantomjs
+  volumes:
+    - ~/Documents/workspace/rcmd-linkage:/home/recommend/workspace
+  links:
+    - mysqlservermain
+    - mysqlserverlinkage
+  extra_hosts:
+    - railsserverlinkage:127.0.0.1
+  ports:
+     - "3000:3000"
+     - "9000:9000"
+     - "25:25"
+# apache
+apacheserverlinkage:
+  image: drvitamina/rcmdservicedev-apache:centos7
+  volumes:
+    - ~/Documents/workspace/rcmd-linkage/public:/var/www/html
+  links:
+    - railsserverlinkage
+  environment:
+    RAILS_URI: railsserverlinkage
+    RAILS_PORT: 3000
+  ports:
+    - "80:80"
+    - "443:443"
